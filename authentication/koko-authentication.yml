@@ -1,0 +1,44 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.kokocares.org/docs/quickstart
+docs: https://developers.kokocares.org/docs/quickstart
+notes: >-
+  Koko runs two distinct APIs with two different auth postures. The Crisis Helplines
+  API is public and unauthenticated (its OpenAPI declares `security: []` and the info
+  description states "No authentication required (public API)"); access is instead
+  gated by a server-side CORS origin allowlist, which returns 403 to any origin that
+  is not registered. The Koko Keywords API requires HTTP Basic credentials issued by
+  Koko on request.
+summary:
+  types: [none, http]
+  http_schemes: [basic]
+  api_key_in: []
+  oauth2_flows: []
+apis:
+  - api: Crisis Helplines API
+    auth: none
+    source: openapi/koko-crisis-helplines-openapi.yml
+    detail: >-
+      OpenAPI declares an empty top-level `security: []`. Access control is by CORS
+      origin allowlist enforced server-side; unregistered origins receive HTTP 403 with
+      a text/plain body ("Forbidden: no allowed origins configured" or
+      "Forbidden: Origin <origin> not allowed"). Verified live 2026-07-19.
+  - api: Koko Keywords API
+    auth: http-basic
+    source: https://developers.kokocares.org/docs/quickstart
+    detail: >-
+      Credentials are supplied as `username:password` via the KOKO_KEYWORDS_AUTH
+      environment variable and sent as HTTP Basic authorization to
+      https://api.kokocares.org/keywords. The host answers 401 with
+      `WWW-Authenticate: Basic realm="Restricted Area"` when unauthenticated
+      (verified 2026-07-19). Invalid credentials surface as a fatal client error.
+    credential_request: https://r.kokocares.org/api_signup
+    version_header: {name: X-API-VERSION, value: v3}
+    support_contact: api@kokocares.org
+schemes:
+  - name: KokoKeywordsBasic
+    type: http
+    scheme: basic
+    api: Koko Keywords API
+    in_env: KOKO_KEYWORDS_AUTH
+    sources: [https://developers.kokocares.org/docs/quickstart]
