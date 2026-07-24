@@ -1,0 +1,370 @@
+openapi: 3.0.3
+info:
+  title: Crisis Countries Helplines API
+  description: 'A public API providing crisis helpline data organized by country. This API serves mental health and crisis support helpline information to help integrate crisis resources into your application.
+
+
+    ## Features
+
+    - Comprehensive helpline data by country
+
+    - Country alias support (e.g., "USA" resolves to "United States")
+
+    - CORS-enabled for web applications
+
+    - No authentication required (public API)
+
+    '
+  version: 0.0.1
+  contact:
+    name: API Support
+    url: https://github.com/koko/helpline-api
+  license:
+    name: MIT
+servers:
+- url: https://helpline-api.koko.ai/
+  description: Production server
+security: []
+tags:
+- name: Helplines
+  description: Crisis helpline data endpoints
+paths:
+  /crisis_helplines:
+    get:
+      summary: Get helplines for a specific country
+      description: 'Returns an array of crisis helplines for the specified country. The country parameter accepts both full country names and aliases (e.g., "USA", "America" for "United States").
+
+
+        ## Response Patterns
+
+        - Returns empty array `[]` if country has no helplines or is unknown
+
+        - Returns 400 error if country parameter is missing
+
+        - Returns 403 error if request origin is not allowed (CORS)
+
+        '
+      operationId: getHelplines
+      tags:
+      - Helplines
+      parameters:
+      - name: country
+        in: query
+        required: true
+        description: 'Country name or alias to retrieve helplines for.
+
+
+          **Examples:**
+
+          - `United States`
+
+          - `USA` (alias for United States)
+
+          - `America` (alias for United States)
+
+          - `Canada`
+
+          - `CAN` (alias for Canada)
+
+
+          Country names are case-sensitive and should match exactly as stored in the database.
+
+          '
+        schema:
+          type: string
+        examples:
+          unitedStates:
+            value: United States
+            summary: Full country name
+          usaAlias:
+            value: USA
+            summary: Using country alias
+          canada:
+            value: Canada
+            summary: Canada by name
+      responses:
+        '200':
+          description: Successfully retrieved helplines for the specified country
+          headers:
+            Access-Control-Allow-Origin:
+              description: CORS header indicating allowed origin
+              schema:
+                type: string
+                example: https://example.com
+            Vary:
+              description: Indicates response varies by Origin header
+              schema:
+                type: string
+                example: Origin
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Helpline'
+              examples:
+                singleHelpline:
+                  summary: Single helpline for a country
+                  value:
+                  - country: United States
+                    countryI18nKey: en-US
+                    countryCode: US
+                    name: Crisis Text Line
+                    description: 24/7 crisis support via text message
+                    url: https://crisistextline.org
+                    displayURL: crisistextline.org
+                    phone: '741741'
+                    displayNumber: '741741'
+                    formattedCallNumber: '741741'
+                    formattedTextingNumber: '741741'
+                    displayTextNumber: ''
+                    availability: 24/7
+                    modality: text
+                    identity: general
+                    topic: crisis
+                    topicMenu: true
+                    hours: 24/7
+                multipleHelplines:
+                  summary: Multiple helplines for a country
+                  value:
+                  - country: United States
+                    countryI18nKey: en-US
+                    countryCode: US
+                    name: Crisis Text Line
+                    description: 24/7 crisis support via text message
+                    url: https://crisistextline.org
+                    displayURL: crisistextline.org
+                    phone: '741741'
+                    displayNumber: '741741'
+                    formattedCallNumber: '741741'
+                    formattedTextingNumber: '741741'
+                    displayTextNumber: ''
+                    availability: 24/7
+                    modality: text
+                    identity: general
+                    topic: crisis
+                    topicMenu: true
+                    hours: 24/7
+                  - country: United States
+                    countryI18nKey: en-US
+                    countryCode: US
+                    name: National Suicide Prevention Lifeline
+                    description: Free and confidential support for people in distress
+                    url: https://suicidepreventionlifeline.org
+                    displayURL: suicidepreventionlifeline.org
+                    phone: '988'
+                    displayNumber: '988'
+                    formattedCallNumber: '988'
+                    formattedTextingNumber: '988'
+                    displayTextNumber: ''
+                    availability: 24/7
+                    modality: phone
+                    identity: general
+                    topic: suicide
+                    topicMenu: true
+                    hours: 24/7
+                emptyArray:
+                  summary: No helplines found for country
+                  value: []
+        '400':
+          description: Bad request - missing required country parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Country required
+        '403':
+          description: Forbidden - Origin not allowed (CORS error)
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                noOrigin:
+                  summary: No allowed origins configured
+                  value: 'Forbidden: no allowed origins configured'
+                originNotAllowed:
+                  summary: Request origin not in allowlist
+                  value: 'Forbidden: Origin https://unauthorized.com not allowed'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard error response format
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong
+          example: Country required
+    Helpline:
+      type: object
+      description: 'A crisis helpline resource providing mental health and crisis support services.
+
+
+        Each helpline includes contact information, availability details, and categorization metadata.
+
+        '
+      required:
+      - country
+      - countryI18nKey
+      - countryCode
+      - name
+      - description
+      - url
+      - phone
+      - displayNumber
+      - formattedCallNumber
+      - formattedTextingNumber
+      - availability
+      - modality
+      - identity
+      - topic
+      - topicMenu
+      properties:
+        country:
+          type: string
+          description: Full country name where this helpline operates
+          example: United States
+        countryI18nKey:
+          type: string
+          description: Internationalization key for the country (typically locale code)
+          example: en-US
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: US
+          pattern: ^[A-Z]{2}$
+        name:
+          type: string
+          description: Name of the helpline organization or service
+          example: Crisis Text Line
+        description:
+          type: string
+          description: Brief description of the services provided
+          example: 24/7 crisis support via text message
+        url:
+          type: string
+          format: uri
+          description: Full URL to the helpline's website
+          example: https://crisistextline.org
+        displayURL:
+          type: string
+          description: Human-friendly display version of the URL (without protocol)
+          example: crisistextline.org
+        phone:
+          type: string
+          description: Raw phone number or short code
+          example: '741741'
+        displayNumber:
+          type: string
+          description: Phone number formatted for display purposes
+          example: '741741'
+        formattedCallNumber:
+          type: string
+          description: 'Phone number formatted for tel: links (calling)'
+          example: '741741'
+        formattedTextingNumber:
+          type: string
+          description: 'Phone number formatted for sms: links (texting)'
+          example: '741741'
+        displayTextNumber:
+          type: string
+          description: Text message number formatted for display
+          example: ''
+        availability:
+          type: string
+          description: 'Human-readable availability description
+
+
+            **Common values:**
+
+            - `24/7` - Available around the clock
+
+            - `Business hours` - Standard business hours only
+
+            - Custom schedules (e.g., "Mon-Fri 9am-5pm")
+
+            '
+          example: 24/7
+        modality:
+          type: string
+          description: 'Primary contact method for this helpline
+
+
+            **Common values:**
+
+            - `phone` - Voice call support
+
+            - `text` - SMS/text message support
+
+            - `chat` - Online chat support
+
+            - `email` - Email support
+
+            '
+          enum:
+          - phone
+          - text
+          - chat
+          - email
+          example: text
+        identity:
+          type: string
+          description: 'Target demographic or identity group for this helpline
+
+
+            **Examples:**
+
+            - `general` - Available to everyone
+
+            - `youth` - Specifically for young people
+
+            - `lgbtq` - LGBTQ+ focused
+
+            - `veterans` - Military veterans
+
+            - `indigenous` - Indigenous/native populations
+
+            '
+          example: general
+        topic:
+          type: string
+          description: 'Primary topic or issue area addressed by this helpline
+
+
+            **Examples:**
+
+            - `crisis` - General crisis support
+
+            - `suicide` - Suicide prevention
+
+            - `domestic_violence` - Domestic violence support
+
+            - `substance_abuse` - Addiction and substance abuse
+
+            - `mental_health` - Mental health support
+
+            '
+          example: crisis
+        topicMenu:
+          type: boolean
+          description: 'Whether this helpline should appear in topic-based filtering menus
+
+
+            Used for UI/UX to determine which helplines to show in categorized views.
+
+            '
+          example: true
+        hours:
+          type: string
+          description: Detailed hours of operation (may duplicate availability field)
+          example: 24/7
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+x-apievangelist-assembled-from:
+- https://developers.kokocares.org/reference/gethelplines.md
+- https://developers.kokocares.org/reference/getcountries.md

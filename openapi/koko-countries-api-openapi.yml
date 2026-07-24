@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: Crisis Helplines Countries API
+  description: 'A public API providing crisis helpline data organized by country. This API serves mental health and crisis support helpline information to help integrate crisis resources into your application.
+
+
+    ## Features
+
+    - Comprehensive helpline data by country
+
+    - Country alias support (e.g., "USA" resolves to "United States")
+
+    - CORS-enabled for web applications
+
+    - No authentication required (public API)
+
+    '
+  version: 0.0.1
+  contact:
+    name: API Support
+    url: https://github.com/koko/helpline-api
+  license:
+    name: MIT
+servers:
+- url: https://helpline-api.koko.ai/
+  description: Production server
+security: []
+tags:
+- name: Countries
+  description: Country metadata endpoints
+paths:
+  /crisis_helplines/countries:
+    get:
+      summary: Get list of available countries
+      description: 'Returns a sorted list of all countries that have helpline data available. Each country includes its country code and internationalization key.
+
+
+        Countries are sorted alphabetically by country name (countryI18nKey) and deduplicated to ensure each country appears only once.
+
+        '
+      operationId: getCountries
+      tags:
+      - Countries
+      responses:
+        '200':
+          description: Successfully retrieved list of countries
+          headers:
+            Access-Control-Allow-Origin:
+              description: CORS header indicating allowed origin
+              schema:
+                type: string
+                example: https://example.com
+            Vary:
+              description: Indicates response varies by Origin header
+              schema:
+                type: string
+                example: Origin
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - countries
+                properties:
+                  countries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Country'
+              example:
+                countries:
+                - countryCode: CA
+                  countryI18nKey: Canada
+                - countryCode: GB
+                  countryI18nKey: United Kingdom
+                - countryCode: US
+                  countryI18nKey: United States
+        '403':
+          description: Forbidden - Origin not allowed (CORS error)
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                noOrigin:
+                  summary: No allowed origins configured
+                  value: 'Forbidden: no allowed origins configured'
+                originNotAllowed:
+                  summary: Request origin not in allowlist
+                  value: 'Forbidden: Origin https://unauthorized.com not allowed'
+components:
+  schemas:
+    Country:
+      type: object
+      description: 'Country metadata including code and internationalization key.
+
+
+        Only countries with at least one helpline are included in the response.
+
+        '
+      required:
+      - countryCode
+      - countryI18nKey
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: US
+          pattern: ^[A-Z]{2}$
+        countryI18nKey:
+          type: string
+          description: Full country name used as internationalization key
+          example: United States
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+x-apievangelist-assembled-from:
+- https://developers.kokocares.org/reference/gethelplines.md
+- https://developers.kokocares.org/reference/getcountries.md
