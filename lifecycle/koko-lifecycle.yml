@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.kokocares.org/
+notes: >-
+  Koko publishes a versioned developer hub and a changelog, but no deprecation policy,
+  no SLA, and no status page were found. status.kokocares.org does not resolve
+  (DNS failure, probed 2026-07-19). Absence is recorded rather than assumed.
+versioning:
+  crisis_helplines:
+    scheme: none
+    current: '0.0.1'
+    detail: OpenAPI info.version; the base URL carries no version segment.
+  keywords:
+    scheme: request-header
+    header: X-API-VERSION
+    current: v3
+  docs_hub_version: v0.3.1
+  changelog: https://developers.kokocares.org/changelog
+  see: changelog/koko-changelog.yml
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  detail: No deprecation or sunset policy is published; no RFC 8594 headers are documented.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probed: [https://status.kokocares.org]
+  result: DNS does not resolve (2026-07-19)
+deprecated_operations: []
+support:
+  developer_contact: api@kokocares.org
+  general_contact: https://kokocares.org/contact-us
+  org_contact: us@kokocares.org

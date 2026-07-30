@@ -1,0 +1,60 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/koko-crisis-helplines-openapi.yml
+format: custom
+envelope:
+  json: {field: error, type: string, description: Human-readable error message}
+  text: >-
+    The 403 CORS rejection is returned as text/plain, not JSON — clients must not
+    assume a JSON body on every error.
+notes: >-
+  Koko does not publish RFC 9457 problem+json. The Crisis Helplines API uses a flat
+  `{"error": "..."}` JSON object for 4xx validation errors and a bare text/plain
+  string for CORS rejections. Keywords API errors are surfaced by the client library
+  rather than as a documented HTTP error catalog.
+problems:
+  - status: 400
+    title: Country required
+    media_type: application/json
+    schema: '#/components/schemas/Error'
+    example: {error: Country required}
+    cause: The required `country` query parameter was omitted.
+    remediation: Supply `country` as a full country name or a known alias (e.g. "United States", "USA", "America").
+    source_operation: openapi/koko-crisis-helplines-openapi.yml#getHelplines
+  - status: 403
+    title: 'Forbidden: no allowed origins configured'
+    media_type: text/plain
+    cause: The service has no CORS origin allowlist configured for the caller.
+    remediation: Contact Koko to have your origin registered.
+    source_operation: openapi/koko-crisis-helplines-openapi.yml#getHelplines
+  - status: 403
+    title: 'Forbidden: Origin <origin> not allowed'
+    media_type: text/plain
+    cause: The request Origin header is not in the server-side allowlist.
+    remediation: Register the calling origin with Koko, or call the API server-side without an Origin header.
+    source_operation: openapi/koko-crisis-helplines-openapi.yml#getCountries
+non_error_empty_result:
+  status: 200
+  body: '[]'
+  description: >-
+    An unknown country, or a country with no helpline data, returns HTTP 200 with an
+    empty array — not a 404. Clients must branch on array length, not status code.
+client_errors:
+  api: Koko Keywords API
+  source: https://github.com/kokocares/keywords-client (src/lib.rs)
+  errors:
+    - code: -1
+      name: AuthOrUrlMissing
+      message: KOKO_KEYWORDS_AUTH must be set before importing the library
+    - name: InvalidCredentials
+      message: Invalid credentials. Please confirm you are using valid credentials, contact us at api@kokocares.org if you need assistance.
+      http_status: 401
+    - name: CacheRefreshError
+      message: Unable to refresh cache. Please try again or contact us at api@kokocares.org if this issue persists.
+    - name: ParseError
+      message: Unable to parse response from API. Please contact us at api@kokocares.org if this issue persists.
+    - code: -5
+      name: InvalidUrl
+      message: Invalid url. Please ensure the url used is valid.
+    - name: InvalidFilter
+      message: 'Invalid filter, please ensure it follows the format: category=value:another_category=value,value2'

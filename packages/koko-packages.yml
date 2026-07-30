@@ -1,0 +1,58 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.kokocares.org/docs/quickstart
+notes: >-
+  Koko ships one client library — the Koko Keywords client — as a native Rust core
+  cross-compiled to four CPU targets, with language bindings. Python and Ruby are
+  published to public registries; Go and PHP are distributed as source from GitHub
+  only (no pkg.go.dev module page, no Packagist entry — both probed 404 on
+  2026-07-19). No client library exists for the Crisis Helplines API; it is a
+  plain unauthenticated JSON API.
+packages:
+  - language: python
+    registry: pypi
+    name: koko-keywords
+    version: 0.3.3
+    url: https://pypi.org/project/koko-keywords/
+    install: pip install koko_keywords
+    source: https://github.com/kokocares/keywords-client/tree/main/clients/python
+    license: MIT
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: koko_keywords
+    version: 0.3.2
+    url: https://rubygems.org/gems/koko_keywords
+    install: gem install koko_keywords
+    source: https://github.com/kokocares/keywords-client/tree/main/clients/ruby
+    license: MIT
+    official: true
+  - language: go
+    registry: null
+    name: github.com/kokocares/keywords-client/clients/go
+    url: https://github.com/kokocares/keywords-client/tree/main/clients/go
+    install: null
+    source: https://github.com/kokocares/keywords-client/tree/main/clients/go
+    license: MIT
+    official: true
+    distribution: source-only
+    note: pkg.go.dev returns 404; go.mod module path is github.com/kokocares/keyword-client/clients/go
+  - language: php
+    registry: null
+    name: koko/koko-keywords
+    url: https://github.com/kokocares/keywords-client-php
+    install: null
+    source: https://github.com/kokocares/keywords-client-php
+    license: MIT
+    official: true
+    distribution: source-only
+    note: composer.json declares koko/koko-keywords but the package is not published on Packagist (404); requires ext-FFI
+  - language: rust
+    registry: null
+    name: koko-keywords
+    url: https://github.com/kokocares/keywords-client
+    source: https://github.com/kokocares/keywords-client
+    license: MIT
+    official: true
+    distribution: source-only
+    note: native core the other bindings wrap; not published to crates.io (404)

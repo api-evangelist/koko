@@ -1,0 +1,61 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/koko-crisis-helplines-openapi.yml
+notes: >-
+  Derived from the published OpenAPI component schemas and $ref links. The model is
+  deliberately flat — Koko exposes a reference dataset, not a resource graph with
+  identifiers. Neither entity carries a primary key or an id-prefix scheme; helplines
+  are addressed only by the country they belong to.
+entities:
+  - name: Helpline
+    schema: '#/components/schemas/Helpline'
+    description: A crisis helpline resource providing mental health and crisis support services.
+    identifier: null
+    identifier_note: No id field is exposed; helplines are retrieved as a collection per country.
+    returned_by: [getHelplines]
+    key_fields:
+      - {name: country, type: string, role: grouping key}
+      - {name: countryCode, type: string, format: ISO 3166-1 alpha-2}
+      - {name: countryI18nKey, type: string, note: locale code on this schema (e.g. en-US)}
+      - {name: name, type: string}
+      - {name: url, type: uri}
+      - {name: phone, type: string}
+      - {name: modality, type: enum, values: [phone, text, chat, email]}
+      - {name: identity, type: string, note: 'open vocabulary; documented examples: general, youth, lgbtq, veterans, indigenous'}
+      - {name: topic, type: string, note: 'open vocabulary; documented examples: crisis, suicide, domestic_violence, substance_abuse, mental_health'}
+      - {name: availability, type: string}
+      - {name: topicMenu, type: boolean, role: UI filtering flag}
+  - name: Country
+    schema: '#/components/schemas/Country'
+    description: Country metadata for countries that have at least one helpline.
+    identifier: countryCode
+    returned_by: [getCountries]
+    key_fields:
+      - {name: countryCode, type: string, format: ISO 3166-1 alpha-2}
+      - {name: countryI18nKey, type: string, note: full country name on this schema (e.g. United States)}
+  - name: Error
+    schema: '#/components/schemas/Error'
+    description: Flat error envelope with a single human-readable `error` string.
+    identifier: null
+    returned_by: [getHelplines]
+relationships:
+  - from: Country
+    to: Helpline
+    type: has_many
+    via: countryCode
+    detail: >-
+      Implicit, not a $ref. A Country is only listed when at least one Helpline exists
+      for it; Helpline carries the same countryCode and country fields.
+  - from: Helpline
+    to: Country
+    type: belongs_to
+    via: countryCode
+inconsistencies:
+  - field: countryI18nKey
+    detail: >-
+      Same field name, two value spaces — a locale code on Helpline ("en-US") and a full
+      country name on Country ("United States"). Consumers mapping between the two
+      operations must not join on this field.
+  - field: hours
+    detail: The schema itself notes that `hours` may duplicate `availability`.
+render: null

@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/koko-crisis-helplines-openapi.yml + https://developers.kokocares.org/docs/quickstart
+notes: >-
+  No provider-published Agent Skills or AGENTS.md were found in the kokocares GitHub
+  organization or on the developer hub (checked 2026-07-19). These skills are generated
+  by API Evangelist. Every operationId referenced is verified against the published
+  OpenAPI; the Keywords skill has no operationIds because Koko publishes no spec for
+  that API, and is grounded in the quickstart and client source instead.
+skills:
+  - file: koko-surface-crisis-helplines.md
+    name: Surface crisis helplines for a country
+    api: openapi/koko-crisis-helplines-openapi.yml
+    operations: [getCountries, getHelplines]
+  - file: koko-match-risk-keywords.md
+    name: Match a search term against Koko's risk keyword taxonomy
+    api: https://api.kokocares.org/keywords
+    operations: []

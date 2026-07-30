@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: kokocares.org
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 19:32:50 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: developers.kokocares.org
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  2 15:25:19 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: helpline-api.koko.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 31 18:31:24 2026 GMT
+  hsts: false
+domains:
+- domain: kokocares.org
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false
+- domain: koko.ai
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

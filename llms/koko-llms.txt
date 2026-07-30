@@ -1,0 +1,15 @@
+# Koko Documentation
+
+> Documentation for Koko
+
+## Guides
+- [Quickstart](https://developers.kokocares.org/docs/quickstart.md)
+- [Python](https://developers.kokocares.org/docs/python.md)
+
+## API Reference
+- [Get helplines for a specific country](https://developers.kokocares.org/reference/gethelplines.md): Returns an array of crisis helplines for the specified country. The country parameter accepts both full country names and aliases (e.g., "USA", "America" for "United States").  ## Response Patterns - Returns empty array `[]` if country has no helplines or is unknown - Returns 400 error if country parameter is missing - Returns 403 error if request origin is not allowed (CORS)
+- [Get list of available countries](https://developers.kokocares.org/reference/getcountries.md): Returns a sorted list of all countries that have helpline data available. Each country includes its country code and internationalization key.  Countries are sorted alphabetically by country name (countryI18nKey) and deduplicated to ensure each country appears only once.
+
+## Changelog
+- [Version 0.2.0 Released](https://developers.kokocares.org/changelog/version-020-released.md)
+- [Version 0.1.0 Released](https://developers.kokocares.org/changelog/version-010-released.md)

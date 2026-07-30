@@ -1,0 +1,50 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Koko Crisis Helplines API
+  version: 1.0.0
+extends: openapi/koko-crisis-helplines-openapi.yml
+x-generated: '2026-07-19'
+x-method: generated
+x-source: openapi/koko-crisis-helplines-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: koko
+      x-apievangelist-harvested: '2026-07-19'
+      x-apievangelist-note: >-
+        Assembled from the two per-operation OpenAPI definitions Koko publishes on its
+        ReadMe developer reference pages. Verified live against
+        https://helpline-api.koko.ai/ on 2026-07-19.
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/koko-authentication.yml
+        conventions: conventions/koko-conventions.yml
+        errors: errors/koko-problem-types.yml
+        lifecycle: lifecycle/koko-lifecycle.yml
+        data_model: data-model/koko-data-model.yml
+        conformance: conformance/koko-conformance.yml
+        skills: skills/_index.yml
+  - target: $.paths['/crisis_helplines'].get
+    update:
+      x-apievangelist-access: >-
+        Public and unauthenticated, but gated by a server-side CORS origin allowlist.
+        Unregistered origins receive HTTP 403 with a text/plain body.
+      x-apievangelist-empty-result: >-
+        An unknown country, or one with no helplines, returns HTTP 200 with an empty
+        array — never a 404. Branch on array length, not status code.
+      x-apievangelist-safety: >-
+        Crisis-support content. Present helpline contact details verbatim; never
+        paraphrase or substitute a phone number.
+  - target: $.paths['/crisis_helplines/countries'].get
+    update:
+      x-apievangelist-ordering: >-
+        Results are sorted alphabetically by countryI18nKey and deduplicated server-side.
+      x-apievangelist-usage: >-
+        Call this first to discover valid country values before calling getHelplines.
+  - target: $.components.schemas.Country.properties.countryI18nKey
+    update:
+      x-apievangelist-warning: >-
+        Field-name collision: on Country this carries the full country name
+        ("United States"), while on Helpline the same field name carries a locale code
+        ("en-US"). Do not assume one value space across both schemas.

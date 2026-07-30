@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/koko-crisis-helplines-openapi.yml
+docs: https://developers.kokocares.org/docs/quickstart
+notes: >-
+  Koko's public surface is small and read-only, so most cross-cutting conventions are
+  either absent or implicit. Recorded honestly: absence is data. There is NO
+  idempotency contract (no write operations exist on the public API) and NO
+  pagination (both operations return complete unpaged collections).
+authentication:
+  crisis_helplines: none (CORS origin allowlist)
+  keywords: HTTP Basic via KOKO_KEYWORDS_AUTH
+  see: authentication/koko-authentication.yml
+idempotency:
+  supported: false
+  reason: The public API exposes only GET operations; there are no writes to make idempotent.
+pagination:
+  supported: false
+  detail: >-
+    getHelplines returns a complete JSON array for the requested country; getCountries
+    returns the complete deduplicated country list. No limit/offset/cursor parameters
+    are defined and no pagination metadata is returned.
+sorting:
+  getCountries: Sorted alphabetically by countryI18nKey and deduplicated server-side.
+filtering:
+  crisis_helplines:
+    param: country
+    in: query
+    required: true
+    aliases: Country aliases are resolved server-side (e.g. "USA" and "America" both resolve to "United States").
+    case_sensitivity: Country names are case-sensitive and must match stored values exactly.
+  keywords:
+    style: colon-delimited dimension=value filter string
+    dimensions: [category, confidence, intensity]
+    example: 'category=eating_disorder,parenting:confidence=high,low'
+    semantics: Omitting a dimension does not filter on that dimension.
+    source: https://developers.kokocares.org/docs/python
+field_expansion: {supported: false}
+sparse_fields: {supported: false}
+metadata: {supported: false}
+request_tracing:
+  request_id_header: null
+  detail: No request-id or correlation header is documented or returned.
+versioning:
+  crisis_helplines:
+    scheme: none-in-path
+    detail: The base URL carries no version segment; the OpenAPI info.version is 0.0.1.
+  keywords:
+    scheme: request-header
+    header: X-API-VERSION
+    current: v3
+    source: https://github.com/kokocares/keywords-client (src/lib.rs)
+  docs_version: v0.3.1 (developer hub version selector)
+error_envelope:
+  json: {error: string}
+  text_plain_403: true
+  rfc9457: false
+  see: errors/koko-problem-types.yml
+empty_result_semantics:
+  detail: Unknown or empty countries return HTTP 200 with `[]` rather than 404.
+rate_limiting:
+  documented: false
+  detail: >-
+    No rate-limit headers or published quotas were found. The Keywords client mitigates
+    load with client-side caching driven by the response cache-expiration headers
+    (currently one hour), keeping per-request overhead under 1μs.
+cors:
+  enforced: true
+  detail: >-
+    CORS is the primary access control on the Crisis Helplines API. Responses carry
+    Access-Control-Allow-Origin and Vary: Origin; unregistered origins receive 403.
+caching:
+  keywords_cache_ttl_seconds: 3600
+  source: https://github.com/kokocares/keywords-client

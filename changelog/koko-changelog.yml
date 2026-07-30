@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: https://developers.kokocares.org/changelog
+notes: >-
+  Koko publishes a changelog section on its developer hub. Entries are titled by
+  version but are not dated on the public pages, so no dates are recorded here rather
+  than guessing. The developer hub itself displays version v0.3.1; the published
+  Python client is 0.3.3 and the Ruby gem 0.3.2.
+scheme: semver
+current_version: 0.3.1
+current_version_note: developer hub version selector; client packages have moved ahead (see packages/koko-packages.yml)
+entries:
+  - version: 0.2.0
+    date: null
+    url: https://developers.kokocares.org/changelog/version-020-released
+    breaking: false
+    highlights:
+      - Updated the API and client libraries to be fault tolerant.
+      - >-
+        Added support for client-side filtering of keywords by returning the category,
+        severity and confidence in the API response.
+  - version: 0.1.0
+    date: null
+    url: https://developers.kokocares.org/changelog/version-010-released
+    breaking: false
+    highlights:
+      - Launched the beta of the Suicide Prevention Toolkit.
+      - Shipped client libraries for Ruby and Python.

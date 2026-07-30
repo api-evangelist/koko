@@ -1,0 +1,16 @@
+{
+  "provider": "koko",
+  "sources": [
+    "koko-countries-api-openapi.yml",
+    "koko-helplines-api-openapi.yml"
+  ],
+  "outputs": [
+    "koko-countries-api-openapi.yml",
+    "koko-helplines-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

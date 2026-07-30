@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: searched
+source: live probe 2026-07-19
+notes: >-
+  No .well-known documents are published on any Koko host. getsupport.org returns
+  HTTP 200 for every /.well-known/ path but serves the SPA shell
+  (content-type text/html, <title>Koko Support Navigator</title>) — a soft-200
+  catch-all, not a real document, so nothing was saved. api.kokocares.org is behind
+  HTTP Basic auth and answers 401 for all paths.
+hosts:
+  - host: https://kokocares.org
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://developers.kokocares.org
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://api.kokocares.org
+    documents:
+      - {path: /.well-known/security.txt, status: 401, note: host requires HTTP Basic auth}
+      - {path: /.well-known/openid-configuration, status: 401}
+      - {path: /.well-known/oauth-authorization-server, status: 401}
+      - {path: /.well-known/api-catalog, status: 401}
+      - {path: /.well-known/ai-plugin.json, status: 401}
+  - host: https://getsupport.org
+    documents:
+      - {path: /.well-known/security.txt, status: 200, soft_200: true, content_type: 'text/html; charset=utf-8'}
+      - {path: /.well-known/openid-configuration, status: 200, soft_200: true}
+      - {path: /.well-known/oauth-authorization-server, status: 200, soft_200: true}
+      - {path: /.well-known/api-catalog, status: 200, soft_200: true}
+      - {path: /.well-known/ai-plugin.json, status: 200, soft_200: true, content_type: 'text/html; charset=utf-8'}
+documents_saved: []
