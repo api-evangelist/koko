@@ -1,25 +1,163 @@
 aid: koko
 name: Koko
-description: Koko is a company surfaced as a portfolio company of union-square-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Koko is a 501(c)(3) nonprofit that makes free, evidence-based mental health support
+  available to young people where they already are — inside the online platforms they
+  use. Koko says it has reached more than 6 million users across 199 countries. Its
+  model is detection plus direction: a keyword and AI engine identifies high-risk
+  posts and searches on partner platforms, and matched users are routed to free crisis
+  helplines and self-guided mini-courses covering mood regulation, body image and
+  self-harm. Koko ships this as a developer-facing Suicide Prevention Toolkit built on
+  two APIs — the credential-gated Koko Keywords API, wrapped by a native Rust client
+  with Python, Ruby, Go and PHP bindings, and the public Crisis Helplines API, which
+  returns crisis helpline contact data by country. Koko has been deployed by TikTok,
+  Pinterest, Giphy, Snapchat, Tumblr, Bluesky, WhatsApp and Discord, and its work is
+  backed by eight peer-reviewed publications including three randomized controlled
+  trials.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://avatars.githubusercontent.com/u/69280615?v=4
 url: https://raw.githubusercontent.com/api-evangelist/koko/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - union-square-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-live-developer-surface
+x-note: >-
+  The stub for this company recorded https://itskoko.com as the website. As of
+  2026-07-19 that domain no longer belongs to Koko — it serves an unrelated cricket
+  betting affiliate site. The live Koko surface is kokocares.org (legal entity
+  Koko AI Inc.), confirmed via the kokocares GitHub organization and the
+  developers.kokocares.org developer hub.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Mental Health
+- Crisis Support
+- Suicide Prevention
+- Trust and Safety
+- Content Moderation
+- Nonprofit
+- Health
+- Helplines
+apis:
+- aid: koko:keywords
+  name: Koko Keywords API
+  description: >-
+    The keyword-matching service behind Koko's Suicide Prevention Toolkit. Callers match a search term
+    or post against Koko's risk taxonomy, filtered across three dimensions — category, confidence and
+    intensity. Requires HTTP Basic credentials issued by Koko. Consumed through the native Rust client
+    and its Python, Ruby, Go and PHP bindings, which cache the compiled regex set for sub-microsecond
+    matching.
+  humanURL: https://developers.kokocares.org/docs/getting-started
+  baseURL: https://api.kokocares.org/keywords
+  tags:
+  - Keywords
+  - Content Moderation
+  - Trust and Safety
+  properties:
+  - type: GettingStarted
+    url: https://developers.kokocares.org/docs/quickstart
+  - type: SignUp
+    url: https://r.kokocares.org/api_signup
+- aid: koko:koko-countries-api
+  name: Koko Countries API
+  description: Country metadata endpoints
+  humanURL: https://developers.kokocares.org/reference/gethelplines
+  baseURL: https://helpline-api.koko.ai
+  tags:
+  - Countries
+  properties:
+  - type: OpenAPI
+    url: openapi/koko-countries-api-openapi.yml
+  - type: APIReference
+    url: https://developers.kokocares.org/reference
+- aid: koko:koko-helplines-api
+  name: Koko Helplines API
+  description: Crisis helpline data endpoints
+  humanURL: https://developers.kokocares.org/reference/gethelplines
+  baseURL: https://helpline-api.koko.ai
+  tags:
+  - Helplines
+  properties:
+  - type: OpenAPI
+    url: openapi/koko-helplines-api-openapi.yml
+  - type: APIReference
+    url: https://developers.kokocares.org/reference
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/koko-domain-security.yml
 - type: Website
-  url: https://itskoko.com
+  url: https://kokocares.org
+- type: DeveloperPortal
+  url: https://developers.kokocares.org/docs/getting-started
+- type: Documentation
+  url: https://developers.kokocares.org/docs/getting-started
+- type: APIReference
+  url: https://developers.kokocares.org/reference
+- type: GettingStarted
+  url: https://developers.kokocares.org/docs/quickstart
+- type: SignUp
+  url: https://r.kokocares.org/api_signup
+- type: Support
+  url: https://kokocares.org/contact-us
+- type: HelpCenter
+  url: https://kokocares.org/faq
+- type: GitHubOrganization
+  url: https://github.com/kokocares
+- type: TermsOfService
+  url: https://kokocares.org/terms-of-use-agreement
+- type: PrivacyPolicy
+  url: https://kokocares.org/privacy-policy
+- type: ChangeLog
+  url: https://developers.kokocares.org/changelog
+- type: ChangeLog
+  name: Koko changelog artifact
+  url: changelog/koko-changelog.yml
+- type: Authentication
+  url: authentication/koko-authentication.yml
+- type: Conventions
+  url: conventions/koko-conventions.yml
+- type: ErrorCatalog
+  url: errors/koko-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/koko-lifecycle.yml
+- type: Conformance
+  url: conformance/koko-conformance.yml
+- type: DataModel
+  url: data-model/koko-data-model.yml
+- type: Packages
+  url: packages/koko-packages.yml
+- type: SDKs
+  url: packages/koko-packages.yml
+- type: WellKnown
+  url: well-known/koko-well-known.yml
+- type: MCPServer
+  url: mcp/koko-mcp.yml
+- type: LLMsTxt
+  url: llms/koko-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
