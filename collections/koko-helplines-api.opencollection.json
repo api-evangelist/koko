@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crisis Countries Helplines API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Helplines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get helplines for a specific country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://helpline-api.koko.ai/crisis_helplines",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country name or alias to retrieve helplines for.\n\n**Examples:**\n- `United States`\n- `USA` (alias for United States)\n- `America` (alias for United States)\n- `Canada`\n- `CAN` (alias for Canada)\n\nCountry names are case-sensitive and should match exactly as stored in the database.\n"
+              }
+            ]
+          },
+          "docs": "Returns an array of crisis helplines for the specified country. The country parameter accepts both full country names and aliases (e.g., \"USA\", \"America\" for \"United States\").\n\n## Response Patterns\n- Returns empty array `[]` if country has no helplines or is unknown\n- Returns 400 error if country parameter is missing\n- Returns 403 error if request origin is not allowed (CORS)\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -2,36 +2,37 @@ generated: '2026-07-19'
 method: derived
 source: openapi/koko-crisis-helplines-openapi.yml
 status: candidate
-notes: >-
-  No official hosted or remote MCP server was found for Koko (no mention in the
-  developer hub, llms.txt, or the kokocares GitHub org, checked 2026-07-19). The tool
-  list below is a candidate derived one-to-one from the published OpenAPI operationIds
-  — it is a proposal, not a Koko product. The Keywords API is deliberately excluded:
-  it is credential-gated and its match semantics are safety-sensitive.
+notes: 'No official hosted or remote MCP server was found for Koko (no mention in the developer hub, llms.txt,
+  or the kokocares GitHub org, checked 2026-07-19). The tool list below is a candidate derived one-to-one
+  from the published OpenAPI operationIds — it is a proposal, not a Koko product. The Keywords API is
+  deliberately excluded: it is credential-gated and its match semantics are safety-sensitive.'
 server:
   name: koko
   transport: http
   url: null
 tools:
-  - name: get_helplines
-    description: >-
-      Return the crisis helplines available for a country. Accepts a full country name
-      or a known alias (e.g. "USA", "America"). Returns an empty array when the country
-      is unknown or has no helplines.
-    source_operation: openapi/koko-crisis-helplines-openapi.yml#getHelplines
-    parameters:
-      - {name: country, in: query, required: true, type: string}
-  - name: get_countries
-    description: >-
-      Return the sorted, deduplicated list of countries that have crisis helpline data
-      available, each with its ISO 3166-1 alpha-2 code.
-    source_operation: openapi/koko-crisis-helplines-openapi.yml#getCountries
-    parameters: []
+- name: get_helplines
+  description: Return the crisis helplines available for a country. Accepts a full country name or a known
+    alias (e.g. "USA", "America"). Returns an empty array when the country is unknown or has no helplines.
+  source_operation: openapi/koko-crisis-helplines-openapi.yml#getHelplines
+  parameters:
+  - name: country
+    in: query
+    required: true
+    type: string
+- name: get_countries
+  description: Return the sorted, deduplicated list of countries that have crisis helpline data available,
+    each with its ISO 3166-1 alpha-2 code.
+  source_operation: openapi/koko-crisis-helplines-openapi.yml#getCountries
+  parameters: []
 safety_notes:
-  - >-
-    This data is crisis-support content. Any agent surfacing it should present helpline
-    contact details verbatim and must not paraphrase, summarize away, or substitute
-    phone numbers.
-  - >-
-    The upstream API enforces a CORS origin allowlist; a server-side MCP deployment must
-    have its origin registered with Koko or requests will return 403.
+- This data is crisis-support content. Any agent surfacing it should present helpline contact details
+  verbatim and must not paraphrase, summarize away, or substitute phone numbers.
+- The upstream API enforces a CORS origin allowlist; a server-side MCP deployment must have its origin
+  registered with Koko or requests will return 403.
+deployment:
+  mode: none
+  verified: derived
+  tools: 2
+  checked: '2026-08-12'
+  source: catalog MCP census

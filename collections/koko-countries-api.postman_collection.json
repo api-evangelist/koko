@@ -1,0 +1,152 @@
+{
+  "item": [
+    {
+      "id": "5ed225e1-3f58-439e-ae65-978017103538",
+      "name": "Countries",
+      "description": {
+        "content": "Country metadata endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "15837793-5b29-4126-ae86-8b22ea951ff6",
+          "name": "Get list of available countries",
+          "request": {
+            "name": "Get list of available countries",
+            "description": {
+              "content": "Returns a sorted list of all countries that have helpline data available. Each country includes its country code and internationalization key.\n\nCountries are sorted alphabetically by country name (countryI18nKey) and deduplicated to ensure each country appears only once.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crisis_helplines",
+                "countries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1297bff9-16fa-4cff-904a-93e6f7c91752",
+              "name": "Successfully retrieved list of countries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crisis_helplines",
+                    "countries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "CORS header indicating allowed origin",
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "https://example.com"
+                },
+                {
+                  "disabled": false,
+                  "description": "Indicates response varies by Origin header",
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"countries\": [\n    {\n      \"countryCode\": \"CA\",\n      \"countryI18nKey\": \"Canada\"\n    },\n    {\n      \"countryCode\": \"GB\",\n      \"countryI18nKey\": \"United Kingdom\"\n    },\n    {\n      \"countryCode\": \"US\",\n      \"countryI18nKey\": \"United States\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63db9d2a-9018-4fd4-96d1-3bae82ccade3",
+              "name": "Forbidden - Origin not allowed (CORS error)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crisis_helplines",
+                    "countries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Forbidden: no allowed origins configured",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://helpline-api.koko.ai/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ca7d81cb-ce09-4485-925b-786dedbbd223",
+    "name": "Crisis Helplines Countries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A public API providing crisis helpline data organized by country. This API serves mental health and crisis support helpline information to help integrate crisis resources into your application.\n\n## Features\n- Comprehensive helpline data by country\n- Country alias support (e.g., \"USA\" resolves to \"United States\")\n- CORS-enabled for web applications\n- No authentication required (public API)\n\n\nContact Support:\n Name: API Support",
+      "type": "text/plain"
+    }
+  }
+}

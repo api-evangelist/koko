@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crisis Helplines Countries API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Countries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of available countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://helpline-api.koko.ai/crisis_helplines/countries"
+          },
+          "docs": "Returns a sorted list of all countries that have helpline data available. Each country includes its country code and internationalization key.\n\nCountries are sorted alphabetically by country name (countryI18nKey) and deduplicated to ensure each country appears only once.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

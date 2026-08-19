@@ -1,0 +1,206 @@
+{
+  "item": [
+    {
+      "id": "c2541115-04a3-45f1-9430-09eda62723a1",
+      "name": "Helplines",
+      "description": {
+        "content": "Crisis helpline data endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "02861dfb-ada8-4b35-b377-8844e0107ed2",
+          "name": "Get helplines for a specific country",
+          "request": {
+            "name": "Get helplines for a specific country",
+            "description": {
+              "content": "Returns an array of crisis helplines for the specified country. The country parameter accepts both full country names and aliases (e.g., \"USA\", \"America\" for \"United States\").\n\n## Response Patterns\n- Returns empty array `[]` if country has no helplines or is unknown\n- Returns 400 error if country parameter is missing\n- Returns 403 error if request origin is not allowed (CORS)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crisis_helplines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country name or alias to retrieve helplines for.\n\n**Examples:**\n- `United States`\n- `USA` (alias for United States)\n- `America` (alias for United States)\n- `Canada`\n- `CAN` (alias for Canada)\n\nCountry names are case-sensitive and should match exactly as stored in the database.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b69d3637-3927-481b-8ed4-6fdd467e9fd5",
+              "name": "Successfully retrieved helplines for the specified country",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crisis_helplines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "United States"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "CORS header indicating allowed origin",
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "https://example.com"
+                },
+                {
+                  "disabled": false,
+                  "description": "Indicates response varies by Origin header",
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"country\": \"United States\",\n    \"countryI18nKey\": \"en-US\",\n    \"countryCode\": \"US\",\n    \"name\": \"Crisis Text Line\",\n    \"description\": \"24/7 crisis support via text message\",\n    \"url\": \"https://crisistextline.org\",\n    \"displayURL\": \"crisistextline.org\",\n    \"phone\": \"741741\",\n    \"displayNumber\": \"741741\",\n    \"formattedCallNumber\": \"741741\",\n    \"formattedTextingNumber\": \"741741\",\n    \"displayTextNumber\": \"\",\n    \"availability\": \"24/7\",\n    \"modality\": \"text\",\n    \"identity\": \"general\",\n    \"topic\": \"crisis\",\n    \"topicMenu\": true,\n    \"hours\": \"24/7\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51ad2a8b-a865-4946-b1d7-732afdee17c5",
+              "name": "Bad request - missing required country parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crisis_helplines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "United States"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Country required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fb10962-5485-4376-9d0c-e128386af36c",
+              "name": "Forbidden - Origin not allowed (CORS error)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crisis_helplines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "United States"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Forbidden: no allowed origins configured",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://helpline-api.koko.ai/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7d5d4ff8-fd52-46a3-815b-2019f06893e7",
+    "name": "Crisis Countries Helplines API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A public API providing crisis helpline data organized by country. This API serves mental health and crisis support helpline information to help integrate crisis resources into your application.\n\n## Features\n- Comprehensive helpline data by country\n- Country alias support (e.g., \"USA\" resolves to \"United States\")\n- CORS-enabled for web applications\n- No authentication required (public API)\n\n\nContact Support:\n Name: API Support",
+      "type": "text/plain"
+    }
+  }
+}
