@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Crisis Countries Helplines API
+  title: Crisis Helplines API
   description: 'A public API providing crisis helpline data organized by country. This API serves mental health and crisis support helpline information to help integrate crisis resources into your application.
 
 
@@ -12,9 +12,7 @@ info:
 
     - CORS-enabled for web applications
 
-    - No authentication required (public API)
-
-    '
+    - No authentication required (public API)'
   version: 0.0.1
   contact:
     name: API Support
@@ -41,9 +39,7 @@ paths:
 
         - Returns 400 error if country parameter is missing
 
-        - Returns 403 error if request origin is not allowed (CORS)
-
-        '
+        - Returns 403 error if request origin is not allowed (CORS)'
       operationId: getHelplines
       tags:
       - Helplines
@@ -189,16 +185,6 @@ paths:
                   value: 'Forbidden: Origin https://unauthorized.com not allowed'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response format
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: Human-readable error message describing what went wrong
-          example: Country required
     Helpline:
       type: object
       description: 'A crisis helpline resource providing mental health and crisis support services.
@@ -362,6 +348,16 @@ components:
           type: string
           description: Detailed hours of operation (may duplicate availability field)
           example: 24/7
+    Error:
+      type: object
+      description: Standard error response format
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong
+          example: Country required
 x-readme:
   explorer-enabled: true
   proxy-enabled: true
