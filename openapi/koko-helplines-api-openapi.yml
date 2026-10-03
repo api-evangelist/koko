@@ -185,6 +185,16 @@ paths:
                   value: 'Forbidden: Origin https://unauthorized.com not allowed'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response format
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong
+          example: Country required
     Helpline:
       type: object
       description: 'A crisis helpline resource providing mental health and crisis support services.
@@ -348,16 +358,6 @@ components:
           type: string
           description: Detailed hours of operation (may duplicate availability field)
           example: 24/7
-    Error:
-      type: object
-      description: Standard error response format
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: Human-readable error message describing what went wrong
-          example: Country required
 x-readme:
   explorer-enabled: true
   proxy-enabled: true
