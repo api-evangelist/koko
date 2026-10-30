@@ -64,17 +64,114 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Koko is a 501(c)(3) nonprofit that makes free, evidence-based mental health support available to young people inside the online platforms they already use. Its model is detection plus direction: a keyword and AI engine identifies high-risk posts and searches on partner platforms, and matched users are routed to free crisis helplines and self-guided mini-courses. Koko has been deployed by TikTok, Pinterest, Giphy, Snapchat, Tumblr, Bluesky, WhatsApp and Discord.
+Koko is a 501(c)(3) nonprofit that makes free, evidence-based mental health support available to young people where they already are — inside the online platforms they use. Koko says it has reached more than 6 million users across 199 countries. Its model is detection plus direction: a keyword and AI engine identifies high-risk posts and searches on partner platforms, and matched users are routed to free crisis helplines and self-guided mini-courses covering mood regulation, body image and self-harm. Koko ships this as a developer-facing Suicide Prevention Toolkit built on two APIs — the credential-gated Koko Keywords API, wrapped by a native Rust client with Python, Ruby, Go and PHP bindings, and the public Crisis Helplines API, which returns crisis helpline contact data by country. Koko has been deployed by TikTok, Pinterest, Giphy, Snapchat, Tumblr, Bluesky, WhatsApp and Discord, and its work is backed by eight peer-reviewed publications including three randomized controlled trials.
 
-Koko ships this as a developer-facing Suicide Prevention Toolkit built on two APIs:
+**Areas:** Company · Mental Health · Crisis Support · Suicide Prevention · Trust and Safety · Content Moderation · Non-Profit · Health · Helplines
 
-- **Koko Keywords API** (`https://api.kokocares.org/keywords`) — credential-gated keyword matching against Koko's risk taxonomy across category, confidence and intensity. Consumed through a native Rust client with Python, Ruby, Go and PHP bindings.
-- **Crisis Helplines API** (`https://helpline-api.koko.ai`) — a public, unauthenticated JSON API returning crisis helpline data by country. Access is gated by a server-side CORS origin allowlist.
+## Koko on APIs.io
 
-- Website: https://kokocares.org
-- Developer docs: https://developers.kokocares.org/docs/getting-started
-- GitHub: https://github.com/kokocares
+Everything profiled for Koko is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/koko/](https://apis.io/providers/koko/)** — or go straight to one of the APIs or properties below.
 
-Backed by: union-square-ventures
+### APIs (3)
 
-> **Domain note.** This profile was created from a VC-portfolio stub that recorded `itskoko.com` as the website. As of 2026-07-19 that domain no longer belongs to Koko — it serves an unrelated cricket betting affiliate site. The live Koko surface is `kokocares.org` (legal entity Koko AI Inc.).
+- [Koko Keywords API](https://apis.io/apis/koko/keywords/) — The keyword-matching service behind Koko's Suicide Prevention Toolkit. Callers match a search term or post against Koko's risk taxonomy, filtered across…
+- [Koko Countries API](https://apis.io/apis/koko/koko-countries-api/) — Country metadata endpoints
+- [Koko Helplines API](https://apis.io/apis/koko/koko-helplines-api/) — Crisis helpline data endpoints
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [koko](https://apis.io/servers/koko/koko/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Crisis Helplines Countries API](https://apis.io/collections/koko/open-koko-countries-api/)
+- [Crisis Countries Helplines API](https://apis.io/collections/koko/open-koko-helplines-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Koko Crisis Helplines Overlay](https://apis.io/overlays/koko/koko-crisis-helplines-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Koko Authentication](https://apis.io/security/koko/koko-authentication/)
+- [Koko Domain Security](https://apis.io/security/koko/koko-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://kokocares.org)
+- [Documentation](https://developers.kokocares.org/docs/getting-started)
+- [Getting started](https://developers.kokocares.org/docs/quickstart)
+- [API reference](https://developers.kokocares.org/reference)
+- [Sign up](https://r.kokocares.org/api_signup)
+- [Support](https://kokocares.org/contact-us)
+- [Changelog](https://developers.kokocares.org/changelog)
+- [Terms of service](https://kokocares.org/terms-of-use-agreement)
+- [Privacy policy](https://kokocares.org/privacy-policy)
+- [GitHub](https://github.com/kokocares)
+
+## API Evangelist rating
+
+**Kin Score 31.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 13.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 44.6 |
+| Access clarity | 34.2 |
+
+**Agent readiness 29.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 23.4** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/koko/](https://apis.io/providers/koko/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Koko: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/koko/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
